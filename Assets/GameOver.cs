@@ -9,7 +9,11 @@ public class GameOver : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Debug.Log("Partie Perdue");
-            Camera.main.gameObject.SetActive(false);
+            try 
+            {
+                Camera.main.gameObject.SetActive(false);  
+            }
+            catch { }
         }
     }
 }
