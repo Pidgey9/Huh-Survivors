@@ -1,25 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class InstanciateProj : StateMachineBehaviour
+public class BonusInstanciate : StateMachineBehaviour
 {
+    public Var wep;
     public GameObject projectile;
-    SpriteRenderer sr;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameObject proj = Instantiate(projectile, GameObject.Find("Player").transform);
-        proj.transform.SetParent(GameObject.Find("Bullet Group").transform);
-        sr = GameObject.Find("Player").GetComponent<SpriteRenderer>();
-    }
-    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        sr.color = Color.green;
-    }
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        sr.color = Color.white;
+        if (wep.value >= 2)
+        {
+            GameObject proj2 = Instantiate(projectile, GameObject.Find("Player").transform.position, Quaternion.Euler(0, 0, 90));
+            proj2.transform.SetParent(GameObject.Find("Bullet Group").transform);
+            projectile.GetComponent<ProjectileBonusMove>().id = 2;
+        }
+        if (wep.value >= 3)
+        {
+            GameObject proj3 = Instantiate(projectile, GameObject.Find("Player").transform.position, Quaternion.Euler(0, 0, -90));
+            proj3.transform.SetParent(GameObject.Find("Bullet Group").transform);
+            projectile.GetComponent<ProjectileBonusMove>().id = 3;
+        }
+        if (wep.value >= 4)
+        {
+            GameObject proj4 = Instantiate(projectile, GameObject.Find("Player").transform.position, Quaternion.Euler(0, 0, 180));
+            proj4.transform.SetParent(GameObject.Find("Bullet Group").transform);
+            projectile.GetComponent<ProjectileBonusMove>().id = 4;
+        }
     }
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
